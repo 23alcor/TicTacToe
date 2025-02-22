@@ -16,13 +16,30 @@ function App() {
   const [BlueWins, setBlueWins] = useState(0)
 
   const handleClick = (index) => {
-    if (board[index] !== '') return
-    if (win) return 
+  if (board[index] !== '' || win) return
 
-    const newBoard = [...board]
-    newBoard[index] = turn ? 'X' : 'O'
-    setBoard(newBoard)
-    setTurn(!turn)
+  const newBoard = [...board];
+  newBoard[index] = turn ? 'X' : 'O'
+  setBoard(newBoard)
+
+  if (check(newBoard, 'X')) {
+    setWin('RED')
+    setRedWins(prev => prev + 1)
+    return
+  }
+  if (check(newBoard, 'O')) {
+    setWin('BLUE')
+    setBlueWins(prev => prev + 1)
+    return
+  }
+
+  setCount(prev => prev + 1)
+  if (count + 1 >= 9) {
+    setWin("NO")
+    return
+  }
+
+  setTurn(!turn)
   }
 
   const handleReset = () => {
@@ -32,7 +49,7 @@ function App() {
     setCount(0)
   }
 
-  const check = (choice) => {
+  const check = (board, choice) => {
     if (board[0] === choice && board[1] === choice && board[2] === choice) return true 
     if (board[3] === choice && board[4] === choice && board[5] === choice) return true
     if (board[6] === choice && board[7] === choice && board[8] === choice) return true
@@ -45,25 +62,6 @@ function App() {
     if (board[2] === choice && board[4] === choice && board[6] === choice) return true
 
   }
-
-  useEffect(() => {
-    if (check('X')){
-      setWin('RED')
-      setRedWins(RedWins + 1)
-      return
-    }
-    if(check('O')){
-      setWin('BLUE')
-      setBlueWins(BlueWins + 1)
-      return
-    }
-    setCount(count + 1)
-    if (count + 1 > 8) {
-      setWin("NO")
-      return
-    }
-
-  }, [turn])
 
   return (
     <>
