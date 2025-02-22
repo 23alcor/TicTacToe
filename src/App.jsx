@@ -50,14 +50,17 @@ function App() {
     if (check('X')){
       setWin('RED')
       setRedWins(RedWins + 1)
+      return
     }
     if(check('O')){
       setWin('BLUE')
       setBlueWins(BlueWins + 1)
+      return
     }
     setCount(count + 1)
     if (count + 1 > 8) {
       setWin("NO")
+      return
     }
 
   }, [turn])
