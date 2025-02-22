@@ -11,7 +11,6 @@ function App() {
   const [ turn, setTurn ] = useState(false)
   const [ board, setBoard ] = useState(Array(9).fill(""))
   const [win, setWin] = useState('')
-  const [count, setCount] = useState(0)
   const [RedWins, setRedWins] = useState(0)
   const [BlueWins, setBlueWins] = useState(0)
 
@@ -23,21 +22,26 @@ function App() {
   setBoard(newBoard)
 
   if (check(newBoard, 'X')) {
-    setWin('RED')
+    setWin('RED WINS')
     setRedWins(prev => prev + 1)
     return
   }
   if (check(newBoard, 'O')) {
-    setWin('BLUE')
+    setWin('BLUE WINS')
     setBlueWins(prev => prev + 1)
     return
   }
-
-  setCount(prev => prev + 1)
-  if (count + 1 >= 9) {
-    setWin("NO")
-    return
-  }
+  if( 
+    newBoard[0] !== "" &&
+    newBoard[1] !== "" &&
+    newBoard[2] !== "" &&
+    newBoard[3] !== "" &&
+    newBoard[4] !== "" &&
+    newBoard[5] !== "" &&
+    newBoard[6] !== "" &&
+    newBoard[7] !== "" &&
+    newBoard[8] !== ""
+  ) setWin("DRAW")
 
   setTurn(!turn)
   }
@@ -46,7 +50,6 @@ function App() {
     const newBoard = Array(9).fill("")
     setBoard(newBoard)
     setWin('')
-    setCount(0)
   }
 
   const check = (board, choice) => {
